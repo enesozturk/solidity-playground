@@ -40,3 +40,18 @@ function whatIsMyNumber() public view returns (uint) {
 ```
 
 Using msg.sender gives you the security of the Ethereum blockchain — the only way someone can modify someone else's data would be to steal the private key associated with their Ethereum address.
+
+## Chapter 4: Require
+
+`require` is quite useful for verifying certain conditions that must be true before running a function.
+
+```js
+function sayHiToVitalik(string memory _name) public returns (string memory) {
+  // Compares if _name equals "Vitalik". Throws an error and exits if not true.
+  // (Side note: Solidity doesn't have native string comparison, so we
+  // compare their keccak256 hashes to see if the strings are equal)
+  require(keccak256(abi.encodePacked(_name)) == keccak256(abi.encodePacked("Vitalik")));
+  // If it's true, proceed with the function:
+  return "Hi!";
+}
+```
