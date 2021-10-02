@@ -93,3 +93,5 @@ contract newContract is SomeOtherContract {
 In Solidity, there are two locations you can store variables — in `storage` and in `memory`.
 
 Storage refers to variables stored permanently on the blockchain. Memory variables are temporary, and are erased between external function calls to your contract. Think of it like your computer's hard disk vs RAM.
+
+## Chapter 8: Zombie DNA
