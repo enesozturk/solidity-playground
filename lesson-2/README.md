@@ -55,3 +55,23 @@ function sayHiToVitalik(string memory _name) public returns (string memory) {
   return "Hi!";
 }
 ```
+
+## Chapter 5: Inheritance
+
+Rather than making one extremely long contract, sometimes it makes sense to split your code logic across multiple contracts to organize the code.
+
+One feature of Solidity that makes this more manageable is contract `inheritance`
+
+```js
+contract Doge {
+  function catchphrase() public returns (string memory) {
+    return "So Wow CryptoDoge";
+  }
+}
+
+contract BabyDoge is Doge {
+  function anotherCatchphrase() public returns (string memory) {
+    return "Such Moon BabyDoge";
+  }
+}
+```
