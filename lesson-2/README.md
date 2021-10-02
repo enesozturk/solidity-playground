@@ -75,3 +75,15 @@ contract BabyDoge is Doge {
   }
 }
 ```
+
+## Chapter 6: Import
+
+When you have multiple files and you want to import one file into another, Solidity uses the import keyword:
+
+```js
+import "./someothercontract.sol";
+
+contract newContract is SomeOtherContract {
+
+}
+```
