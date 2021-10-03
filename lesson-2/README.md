@@ -105,3 +105,12 @@ In addition to `public` and `private`, Solidity has two more types of visibility
 **internal** is the same as **private**, except that it's also accessible to contracts that inherit from this contract. (Hey, that sounds like what we want here!).
 
 **external** is similar to **public**, except that these functions can ONLY be called outside the contract — they can't be called by other functions inside that contract. We'll talk about why you might want to use external vs public later.
+
+## Chapter 10: What Do Zombies Eat?
+
+For our contract to talk to another contract on the blockchain that we don't own, first we need to define an `interface`.
+
+- We're only declaring the functions we want to interact with
+- We're not defining the function bodies. Instead of curly braces ({ and }), we're simply ending the function declaration with a semi-colon (;).
+
+By including this interface in our dapp's code our contract knows what the other contract's functions look like, how to call them, and what sort of response to expect.
