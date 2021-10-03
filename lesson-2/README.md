@@ -114,3 +114,26 @@ For our contract to talk to another contract on the blockchain that we don't own
 - We're not defining the function bodies. Instead of curly braces ({ and }), we're simply ending the function declaration with a semi-colon (;).
 
 By including this interface in our dapp's code our contract knows what the other contract's functions look like, how to call them, and what sort of response to expect.
+
+## Chapter 12: Handling Multiple Return Values
+
+```js
+function multipleReturns() internal returns(uint a, uint b, uint c) {
+  return (1, 2, 3);
+}
+
+function processMultipleReturns() external {
+  uint a;
+  uint b;
+  uint c;
+  // This is how you do multiple assignment:
+  (a, b, c) = multipleReturns();
+}
+
+// Or if we only cared about one of the values:
+function getLastReturnValue() external {
+  uint c;
+  // We can just leave the other fields blank:
+  (,,c) = multipleReturns();
+}
+```
