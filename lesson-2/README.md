@@ -137,3 +137,9 @@ function getLastReturnValue() external {
   (,,c) = multipleReturns();
 }
 ```
+
+## Chapter 13: Bonus: Kitty Genes
+
+Inside the if statement, we replaced the last 2 digits of DNA with 99. One way to do this is using the logic: **newDna = newDna - newDna % 100 + 99**;
+
+> Explanation: Assume newDna is 334455. Then newDna % 100 is 55, so newDna - newDna % 100 is 334400. Finally add 99 to get 334499.
