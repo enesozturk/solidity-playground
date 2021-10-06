@@ -19,7 +19,7 @@ contract KittyInterface {
 
 contract ZombieFeeding is ZombieFactory {
 
-    KittyInterface kittyContract = KittyInterface(ckAddress);
+    KittyInterface kittyContract;
 
     function setKittyContractAddress(address _address) external {
         kittyContract = KittyInterface(_address);
