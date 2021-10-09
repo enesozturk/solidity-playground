@@ -106,3 +106,7 @@ You can pass a storage pointer to a struct as an argument to a private or intern
 An important security practice is to examine all your `public` and `external` functions, and try to think of ways users might abuse them. Remember — unless these functions have a modifier like `onlyOwner`, any user can call them and pass them any data they want to.
 
 ## Chapter 8: More on Function Modifiers
+
+## Chapter 9: Zombie Modifiers
+
+> `calldata` is somehow similar to `memory`, but it's only available to `external` functions.
