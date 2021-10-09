@@ -96,3 +96,7 @@ MiniMe mini = MiniMe(10, 20, 30);
 ## Chapter 5: Time Units
 
 Solidity contains the time units `seconds`, `minutes`, `hours`, `days`, `weeks` and `years`. These will convert to a **uint** of the number of seconds in that length of time. So **1 minutes is 60**, **1 hours is 3600** (60 seconds x 60 minutes), **1 days is 86400** (24 hours x 60 minutes x 60 seconds), etc.
+
+## Chapter 6: Zombie Cooldowns
+
+You can pass a storage pointer to a struct as an argument to a private or internal function. This is useful, for example, for passing around our Zombie structs between functions.
