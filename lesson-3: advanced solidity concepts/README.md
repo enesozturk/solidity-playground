@@ -100,3 +100,7 @@ Solidity contains the time units `seconds`, `minutes`, `hours`, `days`, `weeks` 
 ## Chapter 6: Zombie Cooldowns
 
 You can pass a storage pointer to a struct as an argument to a private or internal function. This is useful, for example, for passing around our Zombie structs between functions.
+
+## Chapter 7: Public Functions & Security
+
+An important security practice is to examine all your `public` and `external` functions, and try to think of ways users might abuse them. Remember — unless these functions have a modifier like `onlyOwner`, any user can call them and pass them any data they want to.
