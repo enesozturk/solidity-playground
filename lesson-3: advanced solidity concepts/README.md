@@ -92,3 +92,7 @@ struct MiniMe {
 NormalStruct normal = NormalStruct(10, 20, 30);
 MiniMe mini = MiniMe(10, 20, 30);
 ```
+
+## Chapter 5: Time Units
+
+Solidity contains the time units `seconds`, `minutes`, `hours`, `days`, `weeks` and `years`. These will convert to a **uint** of the number of seconds in that length of time. So **1 minutes is 60**, **1 hours is 3600** (60 seconds x 60 minutes), **1 days is 86400** (24 hours x 60 minutes x 60 seconds), etc.
