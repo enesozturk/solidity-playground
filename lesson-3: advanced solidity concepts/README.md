@@ -110,3 +110,15 @@ An important security practice is to examine all your `public` and `external` fu
 ## Chapter 9: Zombie Modifiers
 
 > `calldata` is somehow similar to `memory`, but it's only available to `external` functions.
+
+## Chapter 10: Saving Gas With 'View' Functions
+
+Some functions will only need to `read` data from the blockchain, so we can make it a `view` function. Which brings us to an important topic when talking about gas optimization.
+
+### View functions don't cost gas
+
+`view` functions don't cost any **gas** when they're called externally by a user.
+
+This is because view functions don't actually change anything on the blockchain – they only read the data. So marking a function with view tells web3.js that it only needs to query your local Ethereum node to run the function, and it doesn't actually have to create a transaction on the blockchain (which would need to be run on every single node, and cost gas).
+
+> Note: If a view function is called `internally` from another function in the same contract **that is not a view function, it will still cost gas**. This is because the other function creates a transaction on Ethereum, and will still need to be verified from every node. **So view functions are only free when they're called externally.**
