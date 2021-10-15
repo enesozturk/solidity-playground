@@ -122,3 +122,15 @@ Some functions will only need to `read` data from the blockchain, so we can make
 This is because view functions don't actually change anything on the blockchain – they only read the data. So marking a function with view tells web3.js that it only needs to query your local Ethereum node to run the function, and it doesn't actually have to create a transaction on the blockchain (which would need to be run on every single node, and cost gas).
 
 > Note: If a view function is called `internally` from another function in the same contract **that is not a view function, it will still cost gas**. This is because the other function creates a transaction on Ethereum, and will still need to be verified from every node. **So view functions are only free when they're called externally.**
+
+## Chapter 11: Storage is Expensive
+
+One of the more expensive operations in Solidity is using `storage` — particularly writes.
+
+This is because every time you write or change a piece of data, it’s written permanently to the blockchain. Forever!
+
+## Declaring arrays in memory
+
+You can use the `memory` keyword with arrays to create a new array inside a function without needing to write anything to storage. The array will only exist until the end of the function call, and this is a lot cheaper gas-wise than updating an array in `storage` — free if it's a view function called externally.
+
+> Note: memory arrays must be created with a length argument (in this example, 3). They currently cannot be resized like storage arrays can with array.push(), although this may be changed in a future version of Solidity.
