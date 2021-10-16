@@ -129,8 +129,10 @@ One of the more expensive operations in Solidity is using `storage` — particul
 
 This is because every time you write or change a piece of data, it’s written permanently to the blockchain. Forever!
 
-## Declaring arrays in memory
+### Declaring arrays in memory
 
 You can use the `memory` keyword with arrays to create a new array inside a function without needing to write anything to storage. The array will only exist until the end of the function call, and this is a lot cheaper gas-wise than updating an array in `storage` — free if it's a view function called externally.
 
 > Note: memory arrays must be created with a length argument (in this example, 3). They currently cannot be resized like storage arrays can with array.push(), although this may be changed in a future version of Solidity.
+
+## Chapter 12: For Loops
