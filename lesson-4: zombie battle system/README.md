@@ -28,3 +28,11 @@ contract OnlineStore {
 ```
 
 > Note: If a function is not marked payable and you try to send Ether to it, the function will reject your transaction.
+
+## Chapter 2: Withdraws
+
+You can use `transfer` to send funds to any Ethereum address.
+
+It is important to note that you cannot transfer Ether to an address unless that address is of type `address payable`.
+
+Once you cast the address from `uint160` to `address payable`, you can transfer Ether to that address using the `transfer` function, and `address(this).balance` will return the total balance stored on the contract. So if 100 users had paid 1 Ether to our contract, `address(this).balance` would equal 100 Ether.
