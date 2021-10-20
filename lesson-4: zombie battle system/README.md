@@ -36,3 +36,30 @@ You can use `transfer` to send funds to any Ethereum address.
 It is important to note that you cannot transfer Ether to an address unless that address is of type `address payable`.
 
 Once you cast the address from `uint160` to `address payable`, you can transfer Ether to that address using the `transfer` function, and `address(this).balance` will return the total balance stored on the contract. So if 100 users had paid 1 Ether to our contract, `address(this).balance` would equal 100 Ether.
+
+## Chapter 4: Random Numbers
+
+In Ethereum, when you call a function on a contract, you broadcast it to a node or nodes on the network as a `transaction`. The nodes on the network then collect a bunch of transactions, try to be the first to solve a computationally-intensive mathematical problem as a "Proof of Work", and then publish that group of transactions along with their Proof of Work (PoW) as a `block` to the rest of the network.
+
+Once a node has solved the PoW, the other nodes stop trying to solve the PoW, verify that the other node's list of transactions are valid, and then accept the block and move on to trying to solve the next block.
+
+**This makes our random number function exploitable.**
+
+### Random number generation via keccak256
+
+We could do something like the following to generate a random number:
+
+``js
+/ Generate a random number between 1 and 100:
+uint randNonce = 0;
+uint random = uint(keccak256(abi.encodePacked(now, msg.sender, randNonce))) % 100;
+randNonce++;
+uint random2 = uint(keccak256(abi.encodePacked(now, msg.sender, randNonce))) % 100;
+
+What this would do is take the timestamp of now, the msg.sender, and an incrementing nonce (a number that is only ever used once, so we don't run the same hash function with the same input parameters twice).
+
+**This method is vulnerable to attack by a dishonest node**
+
+### So how do we generate random numbers safely in Ethereum?
+
+One idea would be to use an `oracle` to access a random number function from outside of the Ethereum blockchain.
