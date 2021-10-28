@@ -33,3 +33,19 @@ contract ERC721 {
 ```
 
 Your contract can inherit from multiple contracts. When using multiple inheritance, you just separate the multiple contracts you're inheriting from with a comma, `,`.
+
+## Chapter 5: ERC721: Transfer Logic
+
+ERC721 spec has 2 different ways to transfer tokens:
+
+```js
+function transferFrom(address _from, address _to, uint256 _tokenId) external payable;
+```
+
+and
+
+```js
+function approve(address _approved, uint256 _tokenId) external payable;
+```
+
+Both methods contain the same transfer logic. In one case the sender of the token calls the transferFrom function; in the other the owner or the approved receiver of the token calls it.
