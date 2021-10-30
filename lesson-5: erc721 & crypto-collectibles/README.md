@@ -49,3 +49,36 @@ function approve(address _approved, uint256 _tokenId) external payable;
 ```
 
 Both methods contain the same transfer logic. In one case the sender of the token calls the transferFrom function; in the other the owner or the approved receiver of the token calls it.
+
+## Chapter 9: Preventing Overflows
+
+- [OpenZeppelin ERC721 contract](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol)
+
+### Contract security enhancements: Overflows and Underflows
+
+Let's say we have a `uint8`, which can only have 8 bits. That means the largest number we can store is binary `11111111` (or in decimal, 2^8 - 1 = 255).
+
+Take a look at the following code. What is `number` equal to at the end?
+
+```js
+uint8 number = 255;
+number++;
+```
+
+In this case, we've caused it to overflow — so number is counterintuitively now equal to 0 even though we increased it. (If you add 1 to binary 11111111, it resets back to 00000000, like a clock going from 23:59 to 00:00).
+
+An underflow is similar, where if you subtract 1 from a uint8 that equals 0, it will now equal 255 (because uints are unsigned, and cannot be negative).
+
+### Using SafeMath
+
+OpenZeppelin has created a library called SafeMath that prevents these issues by default. A `library` is a special type of contract in Solidity. One of the things it is useful for is to attach functions to native data types.
+
+We'll use the syntax using SafeMath for uint256. The SafeMath library has 4 functions — add, sub, mul, and div. And now we can access these functions from uint256 as follows:
+
+```js
+using SafeMath for uint256;
+
+uint256 a = 5;
+uint256 b = a.add(3); // 5 + 3 = 8
+uint256 c = a.mul(2); // 5 * 2 = 10
+```
