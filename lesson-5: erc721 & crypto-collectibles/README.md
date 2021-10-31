@@ -82,3 +82,27 @@ uint256 a = 5;
 uint256 b = a.add(3); // 5 + 3 = 8
 uint256 c = a.mul(2); // 5 * 2 = 10
 ```
+
+## Chapter 10: SafeMath Part 2
+
+`library` keyword — libraries are similar to `contracts` but with a few differences. For our purposes, libraries allow us to use the using keyword, which automatically tacks on all of the library's methods to another data type:
+
+```js
+using SafeMath for uint;
+// now we can use these methods on any uint
+uint test = 2;
+test = test.mul(3); // test now equals 6
+test = test.add(5); // test now equals 11
+```
+
+Note that the `mul` and `add` functions each require 2 arguments, but when we declare `using SafeMath for uint`, the `uint` we call the function on (test) is automatically passed in as the first argument.
+
+```js
+function add(uint256 a, uint256 b) internal pure returns (uint256) {
+  uint256 c = a + b;
+  assert(c >= a);
+  return c;
+}
+```
+
+`assert` is similar to `require`, **where it will throw an error if false**. The difference between assert and require is that **require will refund the user the rest of their gas when a function fails**, whereas assert will not. So most of the time you want to use require in your code; `assert` is typically used when something has gone horribly wrong with the code (like a uint overflow).
