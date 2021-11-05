@@ -106,3 +106,24 @@ function add(uint256 a, uint256 b) internal pure returns (uint256) {
 ```
 
 `assert` is similar to `require`, **where it will throw an error if false**. The difference between assert and require is that **require will refund the user the rest of their gas when a function fails**, whereas assert will not. So most of the time you want to use require in your code; `assert` is typically used when something has gone horribly wrong with the code (like a uint overflow).
+
+## Chapter 13: Comments
+
+`natspec` comment standard:
+
+```js
+/// @title A contract for basic math operations
+/// @author H4XF13LD MORRIS 💯💯😎💯💯
+/// @notice For now, this contract just adds a multiply function
+contract Math {
+  /// @notice Multiplies 2 numbers together
+  /// @param x the first uint.
+  /// @param y the second uint.
+  /// @return z the product of (x * y)
+  /// @dev This function does not currently check for overflows
+  function multiply(uint x, uint y) returns (uint z) {
+    // This is just a normal comment, and won't get picked up by natspec
+    z = x * y;
+  }
+}
+```
