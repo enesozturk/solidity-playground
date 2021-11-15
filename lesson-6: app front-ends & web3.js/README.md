@@ -37,3 +37,31 @@ CryptoZombies.methods
   .createRandomZombie("Vitalik Nakamoto 🤔")
   .send({ from: "0xb60e8dd61c5d32be8058bb8eb970870f07233155", gas: "3000000" });
 ```
+
+## Chapter 2: Web3 Providers
+
+Ethereum is made up of nodes that all share a copy of the same data. Setting a **Web3 Provider** in Web3.js tells our code which node we should be talking to handle our reads and writes. It's kind of like setting the URL of the remote web server for your API calls in a traditional web app.
+
+You could host your own Ethereum node as a provider. However, there's a third-party service that makes your life easier so you don't need to maintain your own Ethereum node in order to provide a DApp for your users — **Infura**.
+
+### Infura
+
+Infura is a service that maintains a set of Ethereum nodes with a caching layer for fast reads, which you can access for free through their API. Using Infura as a provider, you can reliably send and receive messages to/from the Ethereum blockchain without needing to set up and maintain your own node.
+
+You can set up Web3 to use Infura as your web3 provider as follows:
+
+```js
+var web3 = new Web3(
+  new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws")
+);
+```
+
+However, since our DApp is going to be used by many users — and these users are going to WRITE to the blockchain and not just read from it — we'll need a way for these users to sign transactions with their private key.
+
+Cryptography is complicated, so unless you're a security expert and you really know what you're doing, it's probably not a good idea to try to manage users' private keys yourself in our app's front-end.
+
+But luckily you don't need to — there are already services that handle this for you. The most popular of these is **Metamask**.
+
+### MetaMask
+
+Metamask is a browser extension for Chrome and Firefox that lets users securely manage their Ethereum accounts and private keys, and use these accounts to interact with websites that are using Web3.js.
