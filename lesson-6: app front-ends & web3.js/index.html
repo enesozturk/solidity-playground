@@ -20,8 +20,11 @@
     ></script>
   </head>
   <body>
+    <div id="zombies"></div>
+
     <script>
       var cryptoZombies;
+      var userAccount;
 
       function startApp() {
         var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
@@ -29,6 +32,33 @@
           cryptoZombiesABI,
           cryptoZombiesAddress
         );
+
+        var accountInterval = setInterval(function () {
+          if (web3.eth.accounts[0] !== userAccount) {
+            userAccount = web3.eth.accounts[0];
+            getZombiesByOwner(userAccount).then(displayZombies);
+          }
+        }, 100);
+      }
+
+      function displayZombies(ids) {
+        function displayZombies(ids) {
+          $("#zombies").empty();
+          for (id of ids) {
+            getZombieDetails(id).then(function (zombie) {
+              $("#zombies").append(`<div class="zombie">
+              <ul>
+                <li>Name: ${zombie.name}</li>
+                <li>DNA: ${zombie.dna}</li>
+                <li>Level: ${zombie.level}</li>
+                <li>Wins: ${zombie.winCount}</li>
+                <li>Losses: ${zombie.lossCount}</li>
+                <li>Ready Time: ${zombie.readyTime}</li>
+              </ul>
+            </div>`);
+            });
+          }
+        }
       }
 
       function getZombieDetails(id) {
@@ -44,9 +74,7 @@
       }
 
       window.addEventListener("load", function () {
-        // Checking if Web3 has been injected by the browser (Mist/MetaMask)
         if (typeof web3 !== "undefined") {
-          // Use Mist/MetaMask's provider
           web3js = new Web3(web3.currentProvider);
         } else {
           // Handle the case where the user doesn't have web3. Probably
@@ -54,7 +82,6 @@
           // order to use our app.
         }
 
-        // Now you can start your app & access web3js freely:
         startApp();
       });
     </script>
