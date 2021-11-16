@@ -65,3 +65,26 @@ But luckily you don't need to — there are already services that handle this fo
 ### MetaMask
 
 Metamask is a browser extension for Chrome and Firefox that lets users securely manage their Ethereum accounts and private keys, and use these accounts to interact with websites that are using Web3.js.
+
+## Chapter 3: Talking to Contracts
+
+Web3.js will need 2 things to talk to your contract: its **address** and its **ABI**.
+
+After you deploy your contract, it gets a fixed address on Ethereum where it will live forever. You'll need to copy this address after deploying in order to talk to your smart contract.
+
+### Contract ABI
+
+The other thing Web3.js will need to talk to your contract is its **ABI**.
+
+ABI stands for Application Binary Interface. Basically it's a representation of your contracts' methods in JSON format that tells Web3.js how to format function calls in a way your contract will understand.
+
+When you compile your contract to deploy to Ethereum (which we'll cover in Lesson 7), the Solidity compiler will give you the ABI, so you'll need to copy and save this in addition to the contract address.
+
+### Instantiating a Web3.js Contract
+
+Once you have your contract's address and ABI, you can instantiate it in Web3 as follows:
+
+```js
+// Instantiate myContract
+var myContract = new web3js.eth.Contract(myABI, myContractAddress);
+```
