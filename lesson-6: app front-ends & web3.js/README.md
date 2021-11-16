@@ -88,3 +88,37 @@ Once you have your contract's address and ABI, you can instantiate it in Web3 as
 // Instantiate myContract
 var myContract = new web3js.eth.Contract(myABI, myContractAddress);
 ```
+
+## Chapter 4: Calling Contract Functions
+
+Web3.js has two methods we will use to call functions on our contract: **call** and **send**.
+
+### Call
+
+**call** is used for **view** and **pure** functions. It only runs on the local node, and won't create a transaction on the blockchain.
+
+> Review: view and pure functions are read-only and don't change state on the blockchain. They also don't cost any gas, and the user won't be prompted to sign a transaction with MetaMask.
+
+Using Web3.js, you would call a function named myMethod with the parameter 123 as follows:
+
+```js
+myContract.methods.myMethod(123).call();
+```
+
+### Send
+
+**send** will create a transaction and change data on the blockchain. You'll need to use send for any functions that **aren't view** or **pure**.
+
+> Note: sending a transaction will require the user to pay gas, and will pop up their Metamask to prompt them to sign a transaction. When we use Metamask as our web3 provider, this all happens automatically when we call send(), and we don't need to do anything special in our code. Pretty cool!
+
+Using Web3.js, you would **send** a transaction calling a function named **myMethod** with the parameter **123** as follows:
+
+```js
+myContract.methods.myMethod(123).send();
+```
+
+The syntax is almost identical to **call()**.
+
+### Getting Zombie Dna
+
+In Solidity, **when you declare a variable public, it automatically creates a public "getter" function with the same name**. So if you wanted to look up the zombie with id 15, you would call it as if it were a function: **zombies(15)**.
