@@ -122,3 +122,38 @@ The syntax is almost identical to **call()**.
 ### Getting Zombie Dna
 
 In Solidity, **when you declare a variable public, it automatically creates a public "getter" function with the same name**. So if you wanted to look up the zombie with id 15, you would call it as if it were a function: **zombies(15)**.
+
+## Chapter 7: Sending Transactions
+
+**send**ing a transaction requires a `from` address of who's calling the function (which becomes `msg.sender` in your Solidity code). We'll want this to be the user of our DApp, so MetaMask will pop up to prompt them to sign the transaction.
+
+**send**ing a transaction costs gas
+
+There will be a significant delay from when the user sends a transaction and when that transaction actually takes effect on the blockchain. This is because we have to wait for the transaction to be included in a block, and the block time for Ethereum is on average 15 seconds. If there are a lot of pending transactions on Ethereum or if the user sends too low of a gas price, our transaction may have to wait several blocks to get included, and this could take minutes.
+
+```js
+return cryptoZombies.methods
+  .createRandomZombie(name)
+  .send({ from: userAccount })
+  .on("receipt", function (receipt) {})
+  .on("error", function (error) {});
+```
+
+`receipt` will fire when the transaction is included into a block on Ethereum, which means our zombie has been created and saved on our contract
+
+`error` will fire if there's an issue that prevented the transaction from being included in a block, such as the user not sending enough gas. We'll want to inform the user in our UI that the transaction didn't go through so they can try again.
+
+> Note: You can optionally specify gas and gasPrice when you call send, e.g. .send({ from: userAccount, gas: 3000000 }). If you don't specify this, MetaMask will let the user choose these values.
+
+## Chapter 8: Calling Payable Functions
+
+### Wei
+
+A `wei` is the smallest sub-unit of Ether — **there are 10^18 wei in one ether**.
+
+That's a lot of zeroes to count — but luckily Web3.js has a conversion utility that does this for us.
+
+```js
+// This will convert 1 ETH to Wei
+web3js.utils.toWei("1");
+```
