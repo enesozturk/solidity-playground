@@ -157,3 +157,60 @@ That's a lot of zeroes to count — but luckily Web3.js has a conversion utility
 // This will convert 1 ETH to Wei
 web3js.utils.toWei("1");
 ```
+
+## Chapter 9: Subscribing to Events
+
+You can `subscribe` to an event so your web3 provider triggers some logic in your code every time it fires:
+
+```js
+cryptoZombies.events
+  .NewZombie()
+  .on("data", function (event) {
+    let zombie = event.returnValues;
+    // We can access this event's 3 return values on the `event.returnValues` object:
+    console.log(
+      "A new zombie was born!",
+      zombie.zombieId,
+      zombie.name,
+      zombie.dna
+    );
+  })
+  .on("error", console.error);
+```
+
+### Using `indexed`
+
+In order to filter events and only listen for changes related to the current user, our Solidity contract would have to use the `indexed` keyword, like we did in the Transfer event of our ERC721 implementation:
+
+In this case, because \_from and \_to are indexed, that means we can filter for them in our event listener in our front end:
+
+```js
+// Use `filter` to only fire this code when `_to` equals `userAccount`
+cryptoZombies.events
+  .Transfer({ filter: { _to: userAccount } })
+  .on("data", function (event) {
+    let data = event.returnValues;
+    // The current user just received a zombie!
+    // Do something here to update the UI to show it
+  })
+  .on("error", console.error);
+```
+
+As you can see, using events and indexed fields can be quite a useful practice for listening to changes to your contract and reflecting them in your app's front-end.
+
+### Query past events
+
+We can even query past events using `getPastEvents`, and use the filters `fromBlock` and `toBlock` to give Solidity a time range for the event logs ("block" in this case referring to the Ethereum block number):
+
+```js
+cryptoZombies
+  .getPastEvents("NewZombie", { fromBlock: 0, toBlock: "latest" })
+  .then(function (events) {
+    // `events` is an array of `event` objects that we can iterate, like we did above
+    // This code will get us a list of every zombie that was ever created
+  });
+```
+
+Because you can use this method to query the event logs since the beginning of time, this presents an interesting use case: **Using events as a cheaper form of storage.**
+
+If you recall, saving data to the blockchain is one of the most expensive operations in Solidity. But using events is much much cheaper in terms of gas.
