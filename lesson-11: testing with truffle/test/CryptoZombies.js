@@ -57,8 +57,17 @@ contract("CryptoZombies", (accounts) => {
       assert.equal(newOwner, bob);
     });
 
-    xit("should approve and then transfer a zombie when the owner calls transferFrom", async () => {
-      // TODO: Test the two-step scenario.  The owner calls transferFrom
+    it("should approve and then transfer a zombie when the owner calls transferFrom", async () => {
+      const result = await contractInstance.createRandomZombie(zombieNames[0], {
+        from: alice,
+      });
+      const zombieId = result.logs[0].args.zombieId.toNumber();
+      await contractInstance.approve(bob, zombieId, { from: alice });
+      await contractInstance.transferFrom(alice, bob, zombieId, {
+        from: alice,
+      });
+      const newOwner = await contractInstance.ownerOf(zombieId);
+      assert.equal(newOwner, bob);
     });
   });
 });
