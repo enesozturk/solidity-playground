@@ -72,7 +72,7 @@ contract("CryptoZombies", (accounts) => {
     });
   });
 
-  it("zombies should be able to attack another zombie", async () => {
+  it.skip("zombies should be able to attack another zombie", async () => {
     let result;
     result = await contractInstance.createRandomZombie(zombieNames[0], {
       from: alice,
